@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Boleto</string>
+    <string-array name="paises">
+        <item> Argentina </item>
+        <item>Mexico </item>
+        <item>Australia </item>
+        <item>Alemania </item>
+        <item>Ecuador </item>
+        <item>Egipto </item>
+        <item>España </item>
+        <item>Francia </item>
+        <item>Marruecos </item>
+        <item>Malasia </item>
+    </string-array>
+    <string name="desApp"> Paises Disponibles</string>
+    <string name="lblPaises"> Seleccione un pais</string>
+    <string name="lblNombre">Ingrese su nombre</string>
+    <string name="lblEdad">Ingrese su edad</string>
+    <string name="lblFecha">Seleccione una fecha</string>
+</resources>
