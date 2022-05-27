@@ -105,6 +105,20 @@
                     android:text="Enviar informacion"
                     >
                 </Button>
+                <Button
+                    android:id="@+id/btnCerrar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cerrar aplicación"
+                    >
+                </Button>
+                <Button
+                    android:id="@+id/btnLimpiar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Borrar información"
+                    >
+                </Button>
                 <TextView
                     android:id="@+id/lblBoletoDatos"
                     android:layout_width="match_parent"
