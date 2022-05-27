@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView lblBoletoDatos;
     private EditText txtedad;
     private EditText txtprecio;
+    private TextView lblprecio;
     private Button btncerrar;
     private Button btnlimpiar;
 
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         lblBoletoDatos=(TextView) findViewById(R.id.lblBoletoDatos);
         txtedad=(EditText) findViewById(R.id.txtEdad);
         txtprecio=(EditText) findViewById(R.id.txtPrecio);
+        lblprecio=(TextView) findViewById(R.id.lblPrecio);
+        lblprecio.setText("Ingrese el precio");
         btncerrar=(Button) findViewById(R.id.btnCerrar);
         btnlimpiar=(Button) findViewById(R.id.btnLimpiar);
         ArrayAdapter<String> Adaptador=new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_expandable_list_item_1,getResources().getStringArray(R.array.paises));
@@ -71,24 +74,30 @@ public class MainActivity extends AppCompatActivity {
             }});
         btnresivo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                String nombre=etnombre.getText().toString();
-                int precio=Integer.parseInt(txtprecio.getText().toString());
-                int edad= Integer.parseInt(txtedad.getText().toString());
-                int year=dpfecha.getYear();
-                int mes=dpfecha.getMonth()-1;
-                int dia=dpfecha.getDayOfMonth();
-                Date fecha=new Date(year,mes,dia);
-                int tipoViaje;
-                if(radioButton1.isChecked()==true){
-                    tipoViaje=1;
+                if(etnombre.getText().toString().matches("")||txtprecio.getText().toString().matches("")
+                ||txtedad.getText().toString().matches("")){
+                    Toast.makeText(MainActivity.this,"Favor llenar todos los campos",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    tipoViaje=2;
+                    String nombre=etnombre.getText().toString();
+                    int precio= Integer.parseInt(txtprecio.getText().toString());
+                    int edad= Integer.parseInt(txtedad.getText().toString());
+                    int year=dpfecha.getYear();
+                    int mes=dpfecha.getMonth()-1;
+                    int dia=dpfecha.getDayOfMonth();
+                    Date fecha=new Date(year,mes,dia);
+                    int tipoViaje;
+                    if(radioButton1.isChecked()==true){
+                        tipoViaje=1;
+                    }
+                    else{
+                        tipoViaje=2;
+                    }
+                    Boleto boleto=new Boleto(nombre,destino,precio,tipoViaje,fecha);
+                    lblBoletoDatos.setText(boleto.toString()+"\nSubtotal: " +boleto.calcularSubtotal()
+                            +"\nImpuesto: "+boleto.calcularImpuesto()+
+                            "\nDescuento: "+boleto.calcularDescuento(edad));
                 }
-                Boleto boleto=new Boleto(nombre,destino,precio,tipoViaje,fecha);
-                lblBoletoDatos.setText(boleto.toString()+"\nSubtotal: " +boleto.calcularSubtotal()
-                        +"\nImpuesto: "+boleto.calcularImpuesto()+
-                        "\nDescuento: "+boleto.calcularDescuento(edad));
             }
         });
         btncerrar.setOnClickListener(new View.OnClickListener() {
