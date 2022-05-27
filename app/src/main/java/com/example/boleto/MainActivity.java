@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private String destino;
     private TextView lblBoletoDatos;
     private EditText txtedad;
+    private EditText txtprecio;
     private Button btncerrar;
     private Button btnlimpiar;
 
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         radioButton2=(RadioButton) findViewById(R.id.rbDoble);
         lblBoletoDatos=(TextView) findViewById(R.id.lblBoletoDatos);
         txtedad=(EditText) findViewById(R.id.txtEdad);
+        txtprecio=(EditText) findViewById(R.id.txtPrecio);
         btncerrar=(Button) findViewById(R.id.btnCerrar);
         btnlimpiar=(Button) findViewById(R.id.btnLimpiar);
         ArrayAdapter<String> Adaptador=new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_expandable_list_item_1,getResources().getStringArray(R.array.paises));
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         btnresivo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 String nombre=etnombre.getText().toString();
+                int precio=Integer.parseInt(txtprecio.getText().toString());
                 int edad= Integer.parseInt(txtedad.getText().toString());
                 int year=dpfecha.getYear();
                 int mes=dpfecha.getMonth()-1;
@@ -82,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     tipoViaje=2;
                 }
-                Boleto boleto=new Boleto(nombre,destino,tipoViaje,fecha);
+                Boleto boleto=new Boleto(nombre,destino,precio,tipoViaje,fecha);
                 lblBoletoDatos.setText(boleto.toString()+"\nSubtotal: " +boleto.calcularSubtotal()
                         +"\nImpuesto: "+boleto.calcularImpuesto()+
                         "\nDescuento: "+boleto.calcularDescuento(edad));
