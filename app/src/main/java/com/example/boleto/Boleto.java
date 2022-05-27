@@ -18,13 +18,13 @@ public class Boleto {
     }
 
 
-    public Boleto(String nombre, String destino, int tipoViaje, Date fecha) {
+    public Boleto(String nombre, String destino,int precio, int tipoViaje, Date fecha) {
         this();
         this.nombre = nombre;
         this.destino = destino;
+        this.precio = precio;
         this.tipoViaje = tipoViaje;
         this.fecha = fecha;
-        this.precio=this.calcularSubtotal();
     }
 
     public Boleto(Boleto boleto){
@@ -98,10 +98,10 @@ public class Boleto {
     }
     public int calcularSubtotal(){
         if(this.tipoViaje==1){
-            this.precio=950;
+            this.precio=this.precio+950;
         }
         else if(this.tipoViaje==2){
-            this.precio=950*80/100+950;
+            this.precio=this.precio+(950*80/100+950);
         }
         return this.precio;
     }
