@@ -1,13 +1,17 @@
 package com.example.boleto;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.DialogInterface;
 import android.view.View;
 import android.widget.*;
 import android.os.Bundle;
-
 import java.util.Date;
 
+
 public class MainActivity extends AppCompatActivity {
+
     private Spinner spnPaises;
     private EditText etnombre;
     private Button btnresivo;
@@ -16,6 +20,26 @@ public class MainActivity extends AppCompatActivity {
     private String destino;
     private TextView lblBoletoDatos;
     private EditText txtedad;
+    private Button btncerrar;
+    private Button btnlimpiar;
+
+
+    private void btnCerrar(){
+        AlertDialog.Builder confirmar=new AlertDialog.Builder(this);
+        confirmar.setTitle("¿Cerrar aplicación?");
+        confirmar.setMessage("Se borrara la información ingreada");
+        confirmar.setPositiveButton("Confirmar",new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialogInterface, int i){
+                finish();
+            }
+        });
+        confirmar.setNegativeButton("Cancelar", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialogInterface, int i){
+
+            }
+        });
+        confirmar.show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         radioButton2=(RadioButton) findViewById(R.id.rbDoble);
         lblBoletoDatos=(TextView) findViewById(R.id.lblBoletoDatos);
         txtedad=(EditText) findViewById(R.id.txtEdad);
+        btncerrar=(Button) findViewById(R.id.btnCerrar);
+        btnlimpiar=(Button) findViewById(R.id.btnLimpiar);
         ArrayAdapter<String> Adaptador=new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_expandable_list_item_1,getResources().getStringArray(R.array.paises));
         spnPaises.setAdapter(Adaptador);
         spnPaises.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -62,5 +88,18 @@ public class MainActivity extends AppCompatActivity {
                         "\nDescuento: "+boleto.calcularDescuento(edad));
             }
         });
+        btncerrar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                btnCerrar();
+            }
+        });
+        btnlimpiar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                etnombre.setText("");
+                txtedad.setText("");
+                lblBoletoDatos.setText("");
+            }
+        });
+
     }
 }
