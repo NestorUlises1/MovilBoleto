@@ -24,6 +24,19 @@ public class MainActivity extends AppCompatActivity {
     private TextView lblprecio;
     private Button btncerrar;
     private Button btnlimpiar;
+    private boolean verificar(String nombre){
+        for(int i=0;i<10;i++){
+            if(nombre.indexOf(""+i)>-1){
+                return false;
+            }
+        }
+        return true;
+    }
+    private void limpiar(){
+        etnombre.setText("");
+        txtedad.setText("");
+        lblBoletoDatos.setText("");
+    }
 
 
     private void btnCerrar(){
@@ -79,24 +92,35 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"Favor llenar todos los campos",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    String nombre=etnombre.getText().toString();
-                    int precio= Integer.parseInt(txtprecio.getText().toString());
-                    int edad= Integer.parseInt(txtedad.getText().toString());
-                    int year=dpfecha.getYear();
-                    int mes=dpfecha.getMonth()-1;
-                    int dia=dpfecha.getDayOfMonth();
-                    Date fecha=new Date(year,mes,dia);
-                    int tipoViaje;
-                    if(radioButton1.isChecked()==true){
-                        tipoViaje=1;
+                    if(radioButton1.isChecked()==false & radioButton2.isChecked()==false ){
+                        Toast.makeText(MainActivity.this,"Favor llenar todos los campos",Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        tipoViaje=2;
+                        if(!verificar(etnombre.getText().toString())){
+                            etnombre.setText("");
+                            Toast.makeText(MainActivity.this,"Favor de llenar los campos correctamente",Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            String nombre=etnombre.getText().toString();
+                            int precio= Integer.parseInt(txtprecio.getText().toString());
+                            int edad= Integer.parseInt(txtedad.getText().toString());
+                            int year=dpfecha.getYear();
+                            int mes=dpfecha.getMonth()-1;
+                            int dia=dpfecha.getDayOfMonth();
+                            Date fecha=new Date(year,mes,dia);
+                            int tipoViaje;
+                            if(radioButton1.isChecked()==true){
+                                tipoViaje=1;
+                            }
+                            else{
+                                tipoViaje=2;
+                            }
+                            Boleto boleto=new Boleto(nombre,destino,precio,tipoViaje,fecha);
+                            lblBoletoDatos.setText(boleto.toString()+"\nSubtotal: " +boleto.calcularSubtotal()
+                                    +"\nImpuesto: "+boleto.calcularImpuesto()+
+                                    "\nDescuento: "+boleto.calcularDescuento(edad));
+                        }
                     }
-                    Boleto boleto=new Boleto(nombre,destino,precio,tipoViaje,fecha);
-                    lblBoletoDatos.setText(boleto.toString()+"\nSubtotal: " +boleto.calcularSubtotal()
-                            +"\nImpuesto: "+boleto.calcularImpuesto()+
-                            "\nDescuento: "+boleto.calcularDescuento(edad));
                 }
             }
         });
@@ -107,9 +131,7 @@ public class MainActivity extends AppCompatActivity {
         });
         btnlimpiar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                etnombre.setText("");
-                txtedad.setText("");
-                lblBoletoDatos.setText("");
+                limpiar();
             }
         });
 
